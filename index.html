@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaushal Dagur | Portfolio</title>
+
+<style>
+:root {
+    --bg: #0f172a;
+    --text: #e2e8f0;
+    --card: #1e293b;
+    --accent: #38bdf8;
+}
+
+.light-mode {
+    --bg: #f8fafc;
+    --text: #0f172a;
+    --card: #ffffff;
+    --accent: #2563eb;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: 0.4s;
+}
+
+header {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+h1 {
+    color: var(--accent);
+    font-size: 2.5rem;
+}
+
+section {
+    padding: 40px 10%;
+}
+
+h2 {
+    border-bottom: 2px solid var(--accent);
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.card {
+    background: var(--card);
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+}
+
+.skills span {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 6px 12px;
+    margin: 5px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.skills h3 {
+    margin-top: 15px;
+    color: var(--accent);
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.toggle-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<button class="toggle-btn" onclick="toggleMode()">🌙</button>
+
+<header>
+    <h1>Kaushal Dagur</h1>
+    <p>AI/ML Enthusiast | Software Developer</p>
+    <p>
+        <a href="mailto:kaushaldagur360@gmail.com">Email</a> |
+        <a href="https://linkedin.com/in/kaushal-dagur-331119252">LinkedIn</a> |
+        <a href="https://github.com/kaushaldagur">GitHub</a>
+    </p>
+</header>
+
+<section>
+    <h2>About Me</h2>
+    <div class="card">
+        <p>
+            Final-year B.Tech Computer Science student (CGPA: 8.74/10) with strong foundations in AI/ML, 
+            data structures, and scalable system design. Interested in building intelligent, efficient, 
+            and real-world impactful solutions.
+        </p>
+    </div>
+</section>
+
+<section>
+    <h2>Skills</h2>
+    <div class="card skills">
+
+        <h3>Programming</h3>
+        <span>Java</span>
+        <span>JavaScript</span>
+        <span>SQL</span>
+
+        <h3>Core CS</h3>
+        <span>DSA</span>
+        <span>OOP</span>
+        <span>DBMS</span>
+        <span>Operating Systems</span>
+        <span>Computer Networks</span>
+
+        <h3>AI & Backend</h3>
+        <span>Machine Learning</span>
+        <span>Artificial Intelligence</span>
+        <span>MySQL</span>
+
+        <h3>Tools</h3>
+        <span>Git</span>
+        <span>GitHub</span>
+        <span>VS Code</span>
+        <span>IntelliJ IDEA</span>
+        <span>JIRA</span>
+
+    </div>
+</section>
+
+<section>
+    <h2>Projects</h2>
+
+    <div class="card">
+        <h3>Hospital Management System</h3>
+        <p><em>July 2025 – August 2025</em></p>
+        <ul>
+            <li>Developed a full-stack system using HTML, CSS, JavaScript, and MySQL.</li>
+            <li>Designed modular architecture for scalability and performance optimization.</li>
+            <li>Ensured maintainability through structured system design.</li>
+        </ul>
+        <p><strong>Tech Stack:</strong> HTML, CSS, JavaScript, MySQL</p>
+    </div>
+
+    <div class="card">
+        <h3>Online Student Portal</h3>
+        <p><em>Jan 2026 – Feb 2026</em></p>
+        <ul>
+            <li>Built a backend-driven system with authentication and CRUD operations.</li>
+            <li>Implemented REST-based architecture for scalable data management.</li>
+            <li>Ensured secure handling of student records.</li>
+        </ul>
+        <p><strong>Tech Stack:</strong> Java, MySQL</p>
+    </div>
+
+</section>
+
+<section>
+    <h2>Education & Interests</h2>
+    <div class="card">
+        <h3>B.Tech in Computer Science & Engineering</h3>
+        <p>Galgotias University, Greater Noida</p>
+        <p><em>2022 – Present | CGPA: 8.74/10</em></p>
+
+        <ul>
+            <li>Artificial Intelligence and data-driven decision systems</li>
+            <li>Ethical technology design and responsible innovation</li>
+            <li>Interest in data visualization and structured information</li>
+        </ul>
+    </div>
+</section>
+
+<section>
+    <h2>Leadership & Contribution</h2>
+    <div class="card">
+        <ul>
+            <li>Assist peers in understanding DSA and AI/ML concepts.</li>
+            <li>Engage in collaborative problem-solving sessions.</li>
+            <li>Promote structured and logical thinking in coding practices.</li>
+        </ul>
+    </div>
+</section>
+
+<section>
+    <h2>Why This Role Interests Me</h2>
+    <div class="card">
+        <p>
+            I am interested in the intersection of AI, data, and visual communication. 
+            I enjoy structuring complex information into clear and meaningful formats, 
+            which aligns with working on AI data pipelines and infographic design.
+        </p>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Kaushal Dagur</p>
+</footer>
+
+<script>
+function toggleMode() {
+    document.body.classList.toggle("light-mode");
+}
+</script>
+
+</body>
+</html>
