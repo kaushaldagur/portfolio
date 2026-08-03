@@ -3,446 +3,950 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Kaushal Dagur | Portfolio</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+<title>Kaushal Dagur — Software Engineer</title>
+<meta name="description" content="Kaushal Dagur — final-year CS student and full-stack developer. StageSpot, Bridge Simulator, TaskBoard and other builds.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 
-:root {
-    --bg: #0f172a;
-    --text: #e2e8f0;
-    --card: #1e293b;
-    --accent: #38bdf8;
+/* ============ TOKENS ============ */
+:root{
+  --paper:#F1F4F9;
+  --paper-alt:#E5EAF3;
+  --card:#FFFFFF;
+  --ink:#10131F;
+  --ink-soft:#4D5474;
+  --line:#C7D0E2;
+  --blue:#2A46C7;
+  --blue-deep:#182F94;
+  --signal:#C2410C;
+  --radius:6px;
+  --maxw:1080px;
+}
+.dark{
+  --paper:#0B0F1E;
+  --paper-alt:#121933;
+  --card:#121933;
+  --ink:#E8EAF6;
+  --ink-soft:#9AA3C9;
+  --line:#2A3660;
+  --blue:#7C93FF;
+  --blue-deep:#AAB9FF;
+  --signal:#FF7A45;
 }
 
-.light-mode {
-    --bg: #f8fafc;
-    --text: #0f172a;
-    --card: #ffffff;
-    --accent: #2563eb;
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+body{
+  font-family:'IBM Plex Sans', sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.6;
+  transition:background 0.35s ease, color 0.35s ease;
+  position:relative;
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    transition: 0.3s ease;
+/* blueprint grid backdrop */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:48px 48px;
+  opacity:0.35;
 }
 
-/* HEADER */
-header {
-    text-align: center;
-    padding: 60px 20px;
-    background: linear-gradient(135deg, var(--accent), #0ea5e9);
-    color: white;
+a{ color:inherit; text-decoration:none; }
+
+.mono{ font-family:'IBM Plex Mono', monospace; }
+
+.wrap{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:0 24px;
 }
 
-h1 {
-    font-size: 3rem;
+section{ padding:96px 0 0; }
+section:last-of-type{ padding-bottom:96px; }
+
+h1,h2,h3{ font-weight:700; letter-spacing:-0.01em; }
+
+.eyebrow{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.78rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--blue);
+  font-weight:500;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:14px;
+}
+.eyebrow::before{
+  content:'';
+  width:22px; height:1px;
+  background:var(--blue);
+  display:inline-block;
 }
 
-header p {
-    margin-top: 10px;
+.section-head{ margin-bottom:44px; max-width:640px; }
+.section-head h2{ font-size:2rem; }
+.section-head p{ color:var(--ink-soft); margin-top:10px; font-size:1.02rem; }
+
+/* focus visibility */
+a:focus-visible, button:focus-visible{
+  outline:2px solid var(--blue);
+  outline-offset:3px;
+  border-radius:2px;
 }
 
-/* LINKS */
-a {
-    color: inherit;
-    text-decoration: none;
-    font-weight: 500;
+/* ============ NAV ============ */
+.nav{
+  position:sticky; top:0; z-index:50;
+  background:color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:16px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.logo{
+  font-family:'IBM Plex Mono', monospace;
+  font-weight:600;
+  font-size:1rem;
+  border:1px solid var(--ink);
+  padding:4px 9px;
+  border-radius:4px;
+}
+.nav-links{
+  display:flex;
+  gap:28px;
+  list-style:none;
+  font-size:0.92rem;
+}
+.nav-links a{ color:var(--ink-soft); transition:color 0.2s; }
+.nav-links a:hover{ color:var(--ink); }
+.nav-right{ display:flex; align-items:center; gap:18px; }
+
+.mode-btn{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.75rem;
+  letter-spacing:0.06em;
+  background:transparent;
+  border:1px solid var(--line);
+  color:var(--ink-soft);
+  padding:7px 12px;
+  border-radius:20px;
+  cursor:pointer;
+  display:flex; align-items:center; gap:7px;
+}
+.mode-btn:hover{ border-color:var(--blue); color:var(--blue); }
+.mode-dot{ width:7px; height:7px; border-radius:50%; background:var(--signal); }
+
+@media (max-width:720px){
+  .nav-links{ display:none; }
 }
 
-a:hover {
-    text-decoration: underline;
+/* ============ HERO ============ */
+.hero{ padding-top:88px; }
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr;
+  gap:40px;
+  align-items:end;
+  padding-bottom:56px;
+  border-bottom:1px solid var(--line);
+}
+.hero h1{
+  font-size:clamp(2.6rem, 6vw, 4.2rem);
+  line-height:1.02;
+}
+.hero .role{
+  font-size:clamp(1.15rem, 2.4vw, 1.5rem);
+  color:var(--blue);
+  font-weight:600;
+  margin-top:10px;
+}
+.hero p.lede{
+  margin-top:20px;
+  max-width:52ch;
+  color:var(--ink-soft);
+  font-size:1.08rem;
+}
+.hero-cta{ display:flex; gap:12px; margin-top:32px; flex-wrap:wrap; }
+
+.btn{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.85rem;
+  padding:12px 20px;
+  border-radius:4px;
+  border:1px solid var(--ink);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  transition:transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.btn-solid{ background:var(--ink); color:var(--paper); }
+.btn-solid:hover{ transform:translateY(-2px); }
+.btn-outline{ border-color:var(--line); color:var(--ink); }
+.btn-outline:hover{ border-color:var(--ink); transform:translateY(-2px); }
+
+.hero-meta{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.85rem;
+  color:var(--ink-soft);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:20px;
+  background:var(--card);
+}
+.hero-meta div{ display:flex; justify-content:space-between; padding:7px 0; border-bottom:1px dashed var(--line); }
+.hero-meta div:last-child{ border-bottom:none; }
+.hero-meta span:last-child{ color:var(--ink); font-weight:500; text-align:right; }
+
+@media (max-width:800px){
+  .hero-grid{ grid-template-columns:1fr; }
 }
 
-/* SECTIONS */
-section {
-    padding: 60px 10%;
+/* ============ REVEAL ============ */
+.reveal{ opacity:0; transform:translateY(24px); transition:opacity 0.6s ease, transform 0.6s ease; }
+.reveal.in{ opacity:1; transform:translateY(0); }
+
+/* ============ SPEC CARD (signature element) ============ */
+.spec-card{
+  position:relative;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:36px 36px 32px;
+  margin-bottom:28px;
+}
+.spec-card::before, .spec-card::after{
+  content:'';
+  position:absolute;
+  width:16px; height:16px;
+  border-color:var(--blue);
+  opacity:0.6;
+}
+.spec-card::before{
+  top:-1px; left:-1px;
+  border-top:2px solid var(--blue);
+  border-left:2px solid var(--blue);
+}
+.spec-card::after{
+  bottom:-1px; right:-1px;
+  border-bottom:2px solid var(--blue);
+  border-right:2px solid var(--blue);
 }
 
-h2 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    position: relative;
+.stamp{
+  position:absolute;
+  top:28px; right:36px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.72rem;
+  font-weight:600;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--signal);
+  border:2px solid var(--signal);
+  border-radius:4px;
+  padding:5px 10px;
+  transform:rotate(6deg);
 }
 
-h2::after {
-    content: '';
-    width: 60px;
-    height: 3px;
-    background: var(--accent);
-    position: absolute;
-    left: 0;
-    bottom: -8px;
+.spec-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-bottom:6px;
+}
+.build-tag{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.78rem;
+  color:var(--blue);
+  letter-spacing:0.08em;
+}
+.spec-card h3{ font-size:1.55rem; margin-top:4px; }
+.spec-date{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.8rem;
+  color:var(--ink-soft);
+  margin-top:2px;
+}
+.spec-desc{ margin-top:16px; color:var(--ink-soft); max-width:70ch; }
+
+.spec-body{
+  display:grid;
+  grid-template-columns:1.3fr 1fr;
+  gap:28px;
+  margin-top:22px;
+}
+.spec-highlights{ list-style:none; }
+.spec-highlights li{
+  position:relative;
+  padding-left:18px;
+  margin-bottom:9px;
+  font-size:0.96rem;
+}
+.spec-highlights li::before{
+  content:'';
+  position:absolute; left:0; top:9px;
+  width:6px; height:6px;
+  background:var(--blue);
+}
+.spec-side{
+  border-left:1px dashed var(--line);
+  padding-left:24px;
+}
+.spec-side h4{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.72rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  margin-bottom:10px;
+}
+.tech-tags{ display:flex; flex-wrap:wrap; gap:7px; margin-bottom:20px; }
+.tech-tags span{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.74rem;
+  background:var(--paper-alt);
+  border:1px solid var(--line);
+  padding:4px 9px;
+  border-radius:3px;
+}
+.spec-links{ display:flex; flex-direction:column; gap:8px; }
+.spec-links a{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.84rem;
+  color:var(--blue);
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+.spec-links a:hover{ text-decoration:underline; }
+
+@media (max-width:720px){
+  .spec-body{ grid-template-columns:1fr; }
+  .spec-side{ border-left:none; border-top:1px dashed var(--line); padding-left:0; padding-top:18px; }
+  .stamp{ position:static; display:inline-block; margin-bottom:10px; transform:rotate(-2deg); }
+  .spec-top{ flex-direction:column; }
 }
 
-/* CARD */
-.card {
-    background: var(--card);
-    padding: 25px;
-    border-radius: 16px;
-    margin-top: 20px;
-    transition: 0.3s;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+/* ============ OTHER BUILDS (log rows) ============ */
+.log-list{ border-top:1px solid var(--line); }
+.log-row{ border-bottom:1px solid var(--line); }
+.log-toggle{
+  width:100%;
+  background:none;
+  border:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:22px 4px;
+  text-align:left;
+  color:var(--ink);
+  font-family:inherit;
+}
+.log-left{ display:flex; align-items:baseline; gap:18px; }
+.log-id{ font-family:'IBM Plex Mono', monospace; color:var(--ink-soft); font-size:0.82rem; width:52px; flex-shrink:0; }
+.log-title{ font-size:1.12rem; font-weight:600; }
+.log-stack{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--ink-soft); display:none; }
+.log-plus{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:1.1rem;
+  color:var(--blue);
+  transition:transform 0.25s ease;
+  flex-shrink:0;
+}
+.log-row[data-open="true"] .log-plus{ transform:rotate(45deg); }
+
+.log-panel{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 0.35s ease;
+}
+.log-panel-inner{
+  padding:0 4px 26px;
+  display:grid;
+  grid-template-columns:1.3fr 1fr;
+  gap:24px;
+}
+.log-panel-inner p{ color:var(--ink-soft); font-size:0.95rem; }
+.log-panel-inner .spec-highlights{ margin-top:10px; }
+
+@media (min-width:560px){
+  .log-stack{ display:block; }
+}
+@media (max-width:720px){
+  .log-panel-inner{ grid-template-columns:1fr; }
 }
 
-.card:hover {
-    transform: translateY(-8px) scale(1.02);
+/* ============ STACK ============ */
+.stack-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(200px,1fr));
+  gap:0;
+  border-top:1px solid var(--line);
+  border-left:1px solid var(--line);
+}
+.stack-col{
+  border-right:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  padding:24px;
+}
+.stack-col h4{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.74rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--blue);
+  margin-bottom:14px;
+}
+.stack-col ul{ list-style:none; }
+.stack-col li{
+  padding:5px 0;
+  font-size:0.95rem;
+  position:relative;
+  padding-left:16px;
+}
+.stack-col li::before{
+  content:'';
+  position:absolute; left:0; top:12px;
+  width:5px; height:5px;
+  background:var(--ink-soft);
 }
 
-/* GRID FOR PROJECTS */
-.projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+/* ============ EDUCATION ============ */
+.timeline{ border-top:1px solid var(--line); }
+.t-row{
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:24px;
+  padding:26px 0;
+  border-bottom:1px solid var(--line);
+}
+.t-year{ font-family:'IBM Plex Mono', monospace; color:var(--blue); font-size:0.95rem; }
+.t-row h3{ font-size:1.15rem; }
+.t-row p{ color:var(--ink-soft); font-size:0.92rem; margin-top:4px; }
+@media (max-width:560px){
+  .t-row{ grid-template-columns:1fr; gap:6px; }
 }
 
-/* SKILLS */
-.skills span {
-    display: inline-block;
-    background: rgba(56,189,248,0.15);
-    color: var(--accent);
-    padding: 8px 14px;
-    margin: 6px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    transition: 0.3s;
+/* ============ NOTE CARDS (about / looking-for / leadership) ============ */
+.note{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:28px 32px;
 }
+.note p{ color:var(--ink-soft); max-width:68ch; }
+.note + .note{ margin-top:20px; }
+.two-col{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+@media (max-width:720px){ .two-col{ grid-template-columns:1fr; } }
 
-.skills span:hover {
-    background: var(--accent);
-    color: white;
+/* ============ FOOTER ============ */
+footer{
+  margin-top:96px;
+  border-top:1px solid var(--line);
+  padding:48px 0 40px;
 }
-
-.skills h3 {
-    margin-top: 20px;
-    color: var(--accent);
+.footer-grid{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  flex-wrap:wrap;
+  gap:24px;
 }
-
-/* BUTTON */
-.toggle-btn {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: var(--accent);
-    color: white;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+.footer-grid h2{ font-size:1.8rem; max-width:16ch; }
+.footer-links{ display:flex; gap:18px; flex-wrap:wrap; }
+.footer-links a{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.85rem;
+  color:var(--blue);
+  border:1px solid var(--line);
+  padding:9px 14px;
+  border-radius:4px;
 }
-
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 30px;
-    opacity: 0.7;
-}
-
-ul {
-    margin-top: 10px;
-    padding-left: 20px;
-}
-
-/* FLIP CARD */
-.flip-card {
-    perspective: 1000px;
-}
-
-.flip-inner {
-    position: relative;
-    width: 100%;
-    min-height: 280px;
-    height: auto;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-}
-
-.flip-card:hover .flip-inner {
-    transform: rotateY(180deg);
-}
-
-.flip-front,
-.flip-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: var(--card);
-    border-radius: 16px;
-    padding: 20px;
-    backface-visibility: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-
-/* FRONT */
-.flip-front {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    color: var(--accent);
-}
-
-/* BACK */
-.flip-back {
-    transform: rotateY(180deg);
-    overflow-y: auto;
-}
-.flipped {
-    transform: rotateY(180deg);
-}
-/* TIMELINE */
-.timeline {
-    position: relative;
-    margin-top: 30px;
-    padding-left: 30px;
-    border-left: 2px solid var(--accent);
-}
-
-.timeline-item {
-    position: relative;
-    margin-bottom: 30px;
-}
-
-.timeline-dot {
-    position: absolute;
-    left: -10px;
-    top: 5px;
-    width: 14px;
-    height: 14px;
-    background: var(--accent);
-    border-radius: 50%;
-}
-
-.timeline-content {
-    background: var(--card);
-    padding: 20px;
-    border-radius: 12px;
-    margin-left: 20px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-    color: var(--accent);
-    font-style: normal;
-    font-weight: 500;
-}
-
-.timeline-content h3 {
-    margin-bottom: 5px;
+.footer-links a:hover{ border-color:var(--blue); }
+.footer-bottom{
+  margin-top:36px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.76rem;
+  color:var(--ink-soft);
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:8px;
 }
 
 </style>
 </head>
-
 <body>
 
-<button class="toggle-btn" onclick="toggleMode()">🌙</button>
-
-<header>
-    <h1>Kaushal Dagur</h1>
-    <p>AI/ML Enthusiast | Software Developer</p>
-    <p>
-        <a href="mailto:kaushaldagur360@gmail.com">Email</a> |
-        <a href="https://linkedin.com/in/kaushal-dagur-331119252">LinkedIn</a> |
-        <a href="https://github.com/kaushaldagur">GitHub</a>
-    </p>
-    <p style="margin-top:15px; font-size:1.1rem;">
-    Building scalable AI-driven solutions & solving real-world problems
-    </p>
-</header>
-
-<section>
-    <h2>About Me</h2>
-    <div class="card">
-        <p>
-            Final-year B.Tech Computer Science student (CGPA: 8.74/10) with strong foundations in AI/ML, 
-            data structures, and scalable system design. Interested in building intelligent, efficient, 
-            and real-world impactful solutions.
-        </p>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="logo mono">KD</a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="mode-btn" id="modeBtn" type="button" aria-pressed="false">
+        <span class="mode-dot"></span>
+        <span id="modeLabel">Light</span>
+      </button>
     </div>
-</section>
+  </div>
+</nav>
 
-<section>
-    <h2>Skills</h2>
-    <div class="card skills">
+<main id="top">
 
-        <h3>Programming</h3>
-        <span>Java</span>
-        <span>JavaScript</span>
-        <span>SQL</span>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Build Log — 2026</p>
+          <h1>Kaushal Dagur</h1>
+          <p class="role">Software Engineer, fresher</p>
+          <p class="lede">I build full-stack systems that hold together under real use — booking platforms, role-based backends, and a physics engine for a bridge that isn't supposed to fall down.</p>
+          <div class="hero-cta">
+            <a class="btn btn-solid" href="#work">View the work</a>
+            <a class="btn btn-outline" href="mailto:kaushaldagur360@gmail.com">Email me</a>
+            <a class="btn btn-outline" href="https://github.com/kaushaldagur" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+        <div class="hero-meta">
+          <div><span>Location</span><span>Greater Noida, IN</span></div>
+          <div><span>Degree</span><span>B.Tech CSE, 2026</span></div>
+          <div><span>CGPA</span><span>8.74 / 10</span></div>
+          <div><span>Status</span><span>Open to SWE roles</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <h3>Core CS</h3>
-        <span>DSA</span>
-        <span>OOP</span>
-        <span>DBMS</span>
-        <span>Operating Systems</span>
-        <span>Computer Networks</span>
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">About</p>
+        <h2>Final-year, but not first-project</h2>
+      </div>
+      <div class="note reveal">
+        <p>I'm a final-year Computer Science student at Galgotias University. Most of what's below is what I built outside the syllabus — six projects spanning full-stack platforms, a real-time physics simulation, and role-based backend systems. I like taking a problem apart until the data model is obvious, then building outward from there: schema first, API second, interface last.</p>
+      </div>
+    </div>
+  </section>
 
-        <h3>AI & Backend</h3>
-        <span>Machine Learning</span>
-        <span>Artificial Intelligence</span>
-        <span>MySQL</span>
+  <!-- FEATURED WORK -->
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Featured Work</p>
+        <h2>Three builds worth a closer look</h2>
+        <p>Full-stack, in production, and built to handle more than the happy path.</p>
+      </div>
 
-        <h3>Tools</h3>
-        <span>Git</span>
-        <span>GitHub</span>
-        <span>VS Code</span>
-        <span>IntelliJ IDEA</span>
-        <span>JIRA</span>
+      <!-- StageSpot -->
+      <article class="spec-card reveal">
+        <span class="stamp">Live system</span>
+        <div class="spec-top">
+          <div>
+            <p class="build-tag">BUILD 01</p>
+            <h3>StageSpot</h3>
+            <p class="spec-date">July 2026 – August 2026</p>
+          </div>
+        </div>
+        <p class="spec-desc">A full-stack platform that connects performers with cafés and venues looking to host live performances — profile verification, gig postings, bookings, reviews, and search built around how performers actually get discovered.</p>
+        <div class="spec-body">
+          <ul class="spec-highlights">
+            <li>Built with Next.js, TypeScript, Supabase and PostgreSQL end to end.</li>
+            <li>Role-based authentication and secure booking flows using Supabase Auth and Row Level Security.</li>
+            <li>REST APIs for performer, venue, booking and review management.</li>
+            <li>Gemini API for natural-language performer search, with keyword search as a fallback.</li>
+            <li>Deployed on Vercel with Supabase for auth, storage and the database.</li>
+          </ul>
+          <div class="spec-side">
+            <h4>Stack</h4>
+            <div class="tech-tags">
+              <span>Next.js</span><span>TypeScript</span><span>Supabase</span><span>PostgreSQL</span><span>Tailwind</span><span>Gemini API</span>
+            </div>
+            <h4>Links</h4>
+            <div class="spec-links">
+              <a href="https://stage-spot.vercel.app/" target="_blank" rel="noopener">→ Live demo</a>
+              <a href="https://github.com/kaushaldagur/StageSpot" target="_blank" rel="noopener">→ Source on GitHub</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Bridge Simulator -->
+      <article class="spec-card reveal">
+        <span class="stamp">Live system</span>
+        <div class="spec-top">
+          <div>
+            <p class="build-tag">BUILD 02</p>
+            <h3>Bridge Simulator</h3>
+            <p class="spec-date">August 2026</p>
+          </div>
+        </div>
+        <p class="spec-desc">An interactive, browser-based bridge construction tool: design a bridge, then watch it get tested by real-time vehicle loads under an actual physics engine, not a scripted animation.</p>
+        <div class="spec-body">
+          <ul class="spec-highlights">
+            <li>Built with React, TypeScript, Three.js and Rapier Physics.</li>
+            <li>Real-time structural behaviour and vehicle movement driven by a physics engine, not pre-baked.</li>
+            <li>Interactive building tools for multiple structural component types.</li>
+            <li>Rendering and simulation tuned for smooth interaction at frame rate.</li>
+          </ul>
+          <div class="spec-side">
+            <h4>Stack</h4>
+            <div class="tech-tags">
+              <span>React</span><span>TypeScript</span><span>Three.js</span><span>Rapier Physics</span><span>Vite</span>
+            </div>
+            <h4>Links</h4>
+            <div class="spec-links">
+              <a href="https://bridgesimulator.vercel.app/" target="_blank" rel="noopener">→ Live demo</a>
+              <a href="https://github.com/kaushaldagur/bridgesimulator" target="_blank" rel="noopener">→ Source on GitHub</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- TaskBoard -->
+      <article class="spec-card reveal">
+        <span class="stamp">Repo</span>
+        <div class="spec-top">
+          <div>
+            <p class="build-tag">BUILD 03</p>
+            <h3>TaskBoard</h3>
+            <p class="spec-date">2026</p>
+          </div>
+        </div>
+        <p class="spec-desc">A role-based task management platform for Admin, Manager and Employee workflows — project tracking with permissions that actually differ per role, not just a hidden button.</p>
+        <div class="spec-body">
+          <ul class="spec-highlights">
+            <li>Backend services built with Spring Boot and PostgreSQL.</li>
+            <li>REST APIs covering authentication, project and task management.</li>
+            <li>Role-based authorization enforced per user type.</li>
+            <li>Relational schema designed for scalable task tracking.</li>
+          </ul>
+          <div class="spec-side">
+            <h4>Stack</h4>
+            <div class="tech-tags">
+              <span>Java</span><span>Spring Boot</span><span>PostgreSQL</span><span>REST APIs</span>
+            </div>
+            <h4>Links</h4>
+            <div class="spec-links">
+              <a href="https://github.com/kaushaldagur/teamtaskmanager" target="_blank" rel="noopener">→ Source on GitHub</a>
+            </div>
+          </div>
+        </div>
+      </article>
 
     </div>
-</section>
+  </section>
 
-<section>
-    <h2>Projects</h2>
+  <!-- OTHER BUILDS -->
+  <section id="other-work">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Other Builds</p>
+        <h2>More from the log</h2>
+        <p>Smaller in scope, still shipped end to end. Tap a row for the detail.</p>
+      </div>
 
-    <div class="projects">
+      <div class="log-list reveal">
 
-        <!-- Project 1 -->
-        <div class="flip-card">
-            <div class="flip-inner">
-
-                <div class="flip-front">
-                    <h3>Hospital Management System</h3>
+        <div class="log-row" data-open="false">
+          <button class="log-toggle" aria-expanded="false">
+            <span class="log-left">
+              <span class="log-id">LOG 04</span>
+              <span class="log-title">Inventory &amp; Order Management</span>
+              <span class="log-stack mono">Python · FastAPI · PostgreSQL</span>
+            </span>
+            <span class="log-plus">+</span>
+          </button>
+          <div class="log-panel">
+            <div class="log-panel-inner">
+              <div>
+                <p>A backend-driven system for managing products, stock levels and customer orders, with inventory that updates itself as orders move through the pipeline.</p>
+                <ul class="spec-highlights">
+                  <li>Backend services built with FastAPI and PostgreSQL.</li>
+                  <li>CRUD operations with request validation and exception handling.</li>
+                  <li>Inventory levels update automatically during order processing.</li>
+                </ul>
+              </div>
+              <div class="spec-side">
+                <h4>Links</h4>
+                <div class="spec-links">
+                  <a href="https://inventory-seven-ashen.vercel.app" target="_blank" rel="noopener">→ Live demo</a>
+                  <a href="https://github.com/kaushaldagur/inventory" target="_blank" rel="noopener">→ Source on GitHub</a>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                <div class="flip-back">
-                    <p><em>July 2025 – August 2025</em></p>
-                    <ul>
-                        <li>Developed a full-stack system using HTML, CSS, JavaScript, and MySQL.</li>
-                        <li>Designed modular architecture for scalability and performance optimization.</li>
-                        <li>Ensured maintainability through structured system design.</li>
-                    </ul>
-                    <p><strong>Tech Stack:</strong> HTML, CSS, JavaScript, MySQL</p>
+        <div class="log-row" data-open="false">
+          <button class="log-toggle" aria-expanded="false">
+            <span class="log-left">
+              <span class="log-id">LOG 05</span>
+              <span class="log-title">MealMint — AI Meal Planner</span>
+              <span class="log-stack mono">Next.js · Supabase · TypeScript</span>
+            </span>
+            <span class="log-plus">+</span>
+          </button>
+          <div class="log-panel">
+            <div class="log-panel-inner">
+              <div>
+                <p>A responsive web app that generates personalised weekly meal plans from dietary preferences, and keeps nutrition and calorie tracking in one place.</p>
+                <ul class="spec-highlights">
+                  <li>Weekly meal plans generated from user preferences.</li>
+                  <li>Nutrition, recipes and meal schedules managed through one interface.</li>
+                  <li>Reusable UI components with persistent user data via Supabase.</li>
+                </ul>
+              </div>
+              <div class="spec-side">
+                <h4>Links</h4>
+                <div class="spec-links">
+                  <a href="https://github.com/kaushaldagur/meal-planner" target="_blank" rel="noopener">→ Source on GitHub</a>
                 </div>
-
+              </div>
             </div>
+          </div>
         </div>
 
-        <!-- Project 2 -->
-        <div class="flip-card">
-            <div class="flip-inner">
-
-                <div class="flip-front">
-                    <h3>Online Student Portal</h3>
+        <div class="log-row" data-open="false">
+          <button class="log-toggle" aria-expanded="false">
+            <span class="log-left">
+              <span class="log-id">LOG 06</span>
+              <span class="log-title">AI Voice Assistant</span>
+              <span class="log-stack mono">Python · OpenAI API</span>
+            </span>
+            <span class="log-plus">+</span>
+          </button>
+          <div class="log-panel">
+            <div class="log-panel-inner">
+              <div>
+                <p>A voice-enabled assistant that understands spoken queries and answers back in speech, end to end.</p>
+                <ul class="spec-highlights">
+                  <li>Speech-to-text input paired with conversational AI responses.</li>
+                  <li>External APIs integrated to answer user queries.</li>
+                  <li>Responses synthesised back into speech for a full voice loop.</li>
+                </ul>
+              </div>
+              <div class="spec-side">
+                <h4>Links</h4>
+                <div class="spec-links">
+                  <a href="https://aivoiceassisst.vercel.app/" target="_blank" rel="noopener">→ Live demo</a>
+                  <a href="https://github.com/kaushaldagur/aivoiceassisst" target="_blank" rel="noopener">→ Source on GitHub</a>
                 </div>
-
-                <div class="flip-back">
-                    <p><em>Jan 2026 – Feb 2026</em></p>
-                    <ul>
-                        <li>Built a backend-driven system with authentication and CRUD operations.</li>
-                        <li>Implemented REST-based architecture for scalable data management.</li>
-                        <li>Ensured secure handling of student records.</li>
-                    </ul>
-                    <p><strong>Tech Stack:</strong> Java, MySQL</p>
-                </div>
-
+              </div>
             </div>
+          </div>
         </div>
 
+      </div>
     </div>
-</section>
+  </section>
 
-<section>
-    <h2>🎓 Education</h2>
-
-    <div class="timeline">
-
-        <!-- B.Tech -->
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-                <h3>B.Tech in Computer Science & Engineering</h3>
-                <p><strong>Galgotias University, Greater Noida</strong></p>
-                <p><em>2022 – Present | CGPA: 8.74/10</em></p>
-            </div>
+  <!-- STACK -->
+  <section id="stack">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Stack</p>
+        <h2>What I build with</h2>
+      </div>
+      <div class="stack-grid reveal">
+        <div class="stack-col">
+          <h4>Languages</h4>
+          <ul><li>Java</li><li>Python</li><li>JavaScript</li><li>TypeScript</li><li>SQL</li></ul>
         </div>
-
-        <!-- 12th -->
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-                <h3>Class 12 (CBSE)</h3>
-                <p><strong>Happy Blue Bird Public School, Shikarpur, UP</strong></p>
-                <p><em>77%</em></p>
-            </div>
+        <div class="stack-col">
+          <h4>Frontend</h4>
+          <ul><li>React</li><li>Next.js</li><li>Tailwind CSS</li><li>HTML / CSS</li></ul>
         </div>
-
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-                <h3>Class 10 (CBSE)</h3>
-                <p><strong>Happy Blue Bird Public School, Shikarpur, UP</strong></p>
-                <p><em>87%</em></p>
-            </div>
+        <div class="stack-col">
+          <h4>Backend</h4>
+          <ul><li>Spring Boot</li><li>FastAPI</li><li>REST APIs</li><li>Supabase</li></ul>
         </div>
-
+        <div class="stack-col">
+          <h4>Data</h4>
+          <ul><li>PostgreSQL</li><li>MySQL</li></ul>
+        </div>
+        <div class="stack-col">
+          <h4>Tools</h4>
+          <ul><li>Git / GitHub</li><li>Vercel</li><li>VS Code</li><li>IntelliJ IDEA</li><li>JIRA</li></ul>
+        </div>
+        <div class="stack-col">
+          <h4>Core CS</h4>
+          <ul><li>DSA</li><li>OOP</li><li>DBMS</li><li>Operating Systems</li><li>Computer Networks</li></ul>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<section>
-    <h2>Leadership & Contribution</h2>
-    <div class="card">
-        <ul>
-            <li>Assist peers in understanding DSA and AI/ML concepts.</li>
-            <li>Engage in collaborative problem-solving sessions.</li>
-            <li>Promote structured and logical thinking in coding practices.</li>
-        </ul>
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Education</p>
+        <h2>Record</h2>
+      </div>
+      <div class="timeline reveal">
+        <div class="t-row">
+          <span class="t-year mono">2022 – 26</span>
+          <div>
+            <h3>B.Tech, Computer Science &amp; Engineering</h3>
+            <p>Galgotias University, Greater Noida · CGPA 8.74 / 10</p>
+          </div>
+        </div>
+        <div class="t-row">
+          <span class="t-year mono">Class 12</span>
+          <div>
+            <h3>CBSE</h3>
+            <p>Happy Blue Bird Public School, Shikarpur, UP · 77%</p>
+          </div>
+        </div>
+        <div class="t-row">
+          <span class="t-year mono">Class 10</span>
+          <div>
+            <h3>CBSE</h3>
+            <p>Happy Blue Bird Public School, Shikarpur, UP · 87%</p>
+          </div>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<section>
-    <h2>Why This Role Interests Me</h2>
-    <div class="card">
-        <p>
-            I am interested in the intersection of AI, data, and visual communication. 
-            I enjoy structuring complex information into clear and meaningful formats, 
-            which aligns with working on AI data pipelines and infographic design.
-        </p>
+  <!-- LEADERSHIP + LOOKING FOR -->
+  <section id="more">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Outside the Code</p>
+        <h2>A couple more things</h2>
+      </div>
+      <div class="two-col reveal">
+        <div class="note">
+          <h4 class="mono" style="font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--blue); margin-bottom:10px;">Peer support</h4>
+          <p>I regularly help classmates work through DSA and ML concepts, and lean toward collaborative debugging over just handing over an answer — it's usually where I understand a concept best myself.</p>
+        </div>
+        <div class="note">
+          <h4 class="mono" style="font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--blue); margin-bottom:10px;">What I'm looking for</h4>
+          <p>Software engineering roles — full-stack or backend-leaning — where I can work close to the data model and the API layer, on a team that cares about getting the edge cases right.</p>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<footer>
-    <p>Let’s build something impactful 🚀</p>
-    <p><a href="mailto:kaushaldagur360@gmail.com">Contact Me</a></p>
-    <p>© 2026 Kaushal Dagur</p>
-</footer>
+  <!-- CONTACT -->
+  <footer id="contact">
+    <div class="wrap">
+      <div class="footer-grid reveal">
+        <h2>Let's build something that has to work.</h2>
+        <div class="footer-links">
+          <a href="mailto:kaushaldagur360@gmail.com">Email</a>
+          <a href="https://linkedin.com/in/kaushal-dagur-331119252" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/kaushaldagur" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>Kaushal Dagur — Greater Noida, India</span>
+        <span>© 2026</span>
+      </div>
+    </div>
+  </footer>
+
+</main>
 
 <script>
-    function toggleMode() {
-    document.body.classList.toggle("light-mode");
-}
-const cards = document.querySelectorAll('.card, .flip-card');
+(function(){
+  "use strict";
 
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
+  /* -------- dark / light mode -------- */
+  var modeBtn = document.getElementById('modeBtn');
+  var modeLabel = document.getElementById('modeLabel');
+  var root = document.body;
+
+  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if(prefersDark){
+    root.classList.add('dark');
+    modeLabel.textContent = 'Dark';
+    modeBtn.setAttribute('aria-pressed', 'true');
+  }
+
+  modeBtn.addEventListener('click', function(){
+    var isDark = root.classList.toggle('dark');
+    modeLabel.textContent = isDark ? 'Dark' : 'Light';
+    modeBtn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+  });
+
+  /* -------- scroll reveal -------- */
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealEls = document.querySelectorAll('.reveal');
+
+  if(reduceMotion || !('IntersectionObserver' in window)){
+    revealEls.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
         if(entry.isIntersecting){
-            entry.target.style.opacity = 1;
-            entry.target.style.transform = "translateY(0)";
+          entry.target.classList.add('in');
+          observer.unobserve(entry.target);
         }
-    });
-});
+      });
+    }, { threshold: 0.12 });
 
-cards.forEach(card => {
-    card.style.opacity = 0;
-    card.style.transform = "translateY(40px)";
-    card.style.transition = "0.6s";
-    observer.observe(card);
-});
-document.querySelectorAll('.flip-card').forEach(card => {
-    card.addEventListener('click', () => {
-        card.querySelector('.flip-inner').classList.toggle('flipped');
+    revealEls.forEach(function(el){ observer.observe(el); });
+  }
+
+  /* -------- accordion: other builds -------- */
+  var logRows = document.querySelectorAll('.log-row');
+  logRows.forEach(function(row){
+    var btn = row.querySelector('.log-toggle');
+    var panel = row.querySelector('.log-panel');
+
+    btn.addEventListener('click', function(){
+      var isOpen = row.getAttribute('data-open') === 'true';
+
+      if(isOpen){
+        panel.style.maxHeight = '0px';
+        row.setAttribute('data-open', 'false');
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        row.setAttribute('data-open', 'true');
+        btn.setAttribute('aria-expanded', 'true');
+      }
     });
-});
+  });
+})();
 </script>
+
 </body>
 </html>
-
