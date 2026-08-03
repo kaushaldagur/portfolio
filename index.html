@@ -3,24 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <script>
-  /* Set theme before first paint — avoids a flash of the wrong theme on load. */
+  /* Set theme before first paint — avoids a flash of the wrong theme on load.
+     A manually-chosen theme (saved below) always wins over the OS preference. */
   (function(){
     try{
-      if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
-        document.documentElement.classList.add('dark');
-      }
-    }catch(e){}
+      var saved = localStorage.getItem('theme');
+      var wantsDark = saved ? saved === 'dark' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if(wantsDark){ document.documentElement.classList.add('dark'); }
+    }catch(e){
+      try{
+        if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+          document.documentElement.classList.add('dark');
+        }
+      }catch(e2){}
+    }
   })();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kaushal Dagur — Software Engineer</title>
-<meta name="description" content="Kaushal Dagur — Software Engineer specializing in full-stack application development with Java, Spring Boot, Next.js, TypeScript and PostgreSQL.">
+<title>Kaushal Dagur | Software Engineer</title>
+<meta name="description" content="Kaushal Dagur, Software Engineer specializing in full-stack application development with Java, Spring Boot, Next.js, TypeScript and PostgreSQL.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 
 /* ============ TOKENS ============ */
+/* Typed as <color> so the browser can actually interpolate these through
+   the transition, instead of jumping straight to the end value — which is
+   what was reading as "stuck" colors on toggle. */
+@property --paper{ syntax:'<color>'; inherits:true; initial-value:#F1F4F9; }
+@property --paper-alt{ syntax:'<color>'; inherits:true; initial-value:#E5EAF3; }
+@property --card{ syntax:'<color>'; inherits:true; initial-value:#FFFFFF; }
+@property --ink{ syntax:'<color>'; inherits:true; initial-value:#10131F; }
+@property --ink-soft{ syntax:'<color>'; inherits:true; initial-value:#4D5474; }
+@property --line{ syntax:'<color>'; inherits:true; initial-value:#C7D0E2; }
+@property --blue{ syntax:'<color>'; inherits:true; initial-value:#2A46C7; }
+@property --blue-deep{ syntax:'<color>'; inherits:true; initial-value:#182F94; }
+@property --signal{ syntax:'<color>'; inherits:true; initial-value:#C2410C; }
+
 :root{
   --paper:#F1F4F9;
   --paper-alt:#E5EAF3;
@@ -48,10 +68,13 @@
 
 *{ margin:0; padding:0; box-sizing:border-box; }
 
-/* Smooth, uniform theme transition across every element — prevents some
-   pieces snapping instantly while others fade, which is what reads as a glitch. */
-*, *::before, *::after{
-  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+/* Smooth, uniform theme transition. Scoped to real elements only (not
+   ::before/::after) — animating the full-viewport grid background and
+   card corner-ticks was expensive and caused inconsistent, half-updated
+   frames during the toggle. Those now switch instantly instead, which
+   is unnoticeable since they're thin lines / low-opacity. */
+*{
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 html{ scroll-behavior:smooth; }
@@ -421,10 +444,17 @@ a:focus-visible, button:focus-visible{
 /* ============ STACK ============ */
 .stack-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(200px,1fr));
+  grid-template-columns:repeat(3, 1fr);
+  align-items:start;
   gap:0;
   border-top:1px solid var(--line);
   border-left:1px solid var(--line);
+}
+@media (max-width:880px){
+  .stack-grid{ grid-template-columns:repeat(2, 1fr); }
+}
+@media (max-width:560px){
+  .stack-grid{ grid-template-columns:1fr; }
 }
 .stack-col{
   border-right:1px solid var(--line);
@@ -545,7 +575,7 @@ footer{
     <div class="wrap">
       <div class="hero-grid">
         <div>
-          <p class="eyebrow">Build Log — 2026</p>
+          <p class="eyebrow">Build Log / 2026</p>
           <h1>Kaushal Dagur</h1>
           <p class="role">Software Engineer | Full-Stack Developer</p>
           <p class="lede">I build scalable full-stack applications with a focus on backend systems, secure APIs, and intuitive user experiences. My work includes production-ready platforms, role-based management systems, and interactive browser-based simulations.</p>
@@ -597,7 +627,7 @@ footer{
             <p class="spec-date">July 2026 – August 2026</p>
           </div>
         </div>
-        <p class="spec-desc">A full-stack platform that connects performers with cafés and venues looking to host live performances — profile verification, gig postings, bookings, reviews, and search built around how performers actually get discovered.</p>
+        <p class="spec-desc">A full-stack platform that connects performers with cafés and venues looking to host live performances. It handles profile verification, gig postings, bookings, reviews, and search built around how performers actually get discovered.</p>
         <div class="spec-body">
           <ul class="spec-highlights">
             <li>Built with Next.js, TypeScript, Supabase and PostgreSQL end to end.</li>
@@ -662,7 +692,7 @@ footer{
             <p class="spec-date">2026</p>
           </div>
         </div>
-        <p class="spec-desc">A role-based task management platform for Admin, Manager and Employee workflows — project tracking with permissions that actually differ per role, not just a hidden button.</p>
+        <p class="spec-desc">A role-based task management platform for Admin, Manager and Employee workflows, with project tracking and permissions that actually differ per role, not just a hidden button.</p>
         <div class="spec-body">
           <ul class="spec-highlights">
             <li>Backend services built with Spring Boot and PostgreSQL.</li>
@@ -731,7 +761,7 @@ footer{
           <button class="log-toggle" aria-expanded="false">
             <span class="log-left">
               <span class="log-id">LOG 05</span>
-              <span class="log-title">MealMint — AI Meal Planner</span>
+              <span class="log-title">MealMint: AI Meal Planner</span>
               <span class="log-stack mono">Next.js · Supabase · TypeScript</span>
             </span>
             <span class="log-plus">+</span>
@@ -869,11 +899,11 @@ footer{
       <div class="two-col reveal">
         <div class="note">
           <h4 class="mono" style="font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--blue); margin-bottom:10px;">Peer support</h4>
-          <p>I regularly help classmates work through DSA and ML concepts, and lean toward collaborative debugging over just handing over an answer — it's usually where I understand a concept best myself.</p>
+          <p>I regularly help classmates work through DSA and ML concepts, and lean toward collaborative debugging over just handing over an answer. It's usually where I understand a concept best myself.</p>
         </div>
         <div class="note">
           <h4 class="mono" style="font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--blue); margin-bottom:10px;">What I'm looking for</h4>
-          <p>Software engineering roles — full-stack or backend-leaning — where I can work close to the data model and the API layer, on a team that cares about getting the edge cases right.</p>
+          <p>Software engineering roles, full-stack or backend-leaning, where I can work close to the data model and the API layer, on a team that cares about getting the edge cases right.</p>
         </div>
       </div>
     </div>
@@ -891,7 +921,7 @@ footer{
         </div>
       </div>
       <div class="footer-bottom">
-        <span>Kaushal Dagur — Greater Noida, India</span>
+        <span>Kaushal Dagur, Greater Noida, India</span>
         <span>© 2026</span>
       </div>
     </div>
@@ -918,6 +948,7 @@ footer{
     var isDark = root.classList.toggle('dark');
     modeLabel.textContent = isDark ? 'Dark' : 'Light';
     modeBtn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    try{ localStorage.setItem('theme', isDark ? 'dark' : 'light'); }catch(e){}
   });
 
   /* -------- scroll reveal -------- */
